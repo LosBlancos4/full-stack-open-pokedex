@@ -34,3 +34,4 @@ jobs:
           heroku_email: "kjuliusm@gmail.com"
           healthcheck: "https://full-stack-pokemon-cards.herokuapp.com/health"
           checkstring: "ok"
+          rollbackonhealthcheckfailed: true
