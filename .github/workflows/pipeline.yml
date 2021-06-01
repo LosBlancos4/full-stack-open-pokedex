@@ -45,14 +45,10 @@ jobs:
       - name: commits
         env:
           COMMITS: ${{ toJson(github.event.commits) }}
-        run: echo "$COMMITS"
       - name: commit messages
         run: echo "$COMMIT_MESSAGES"
-      - name: skip tag in commit messages
-        run: echo "Skipping due to the skip tag in PR"
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
-        if: ${{ contains(join(COMMIT_MESSAGES), '#skip') }}
       - uses: akhileshns/heroku-deploy@v3.12.12
         if: ${{ github.event_name == 'push' }}
         with:
