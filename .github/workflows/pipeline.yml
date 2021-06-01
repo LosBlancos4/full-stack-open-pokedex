@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-18.04
     env:
         COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
-    #if: ${{ github.event_name == 'push' && !contains(join(COMMIT_MESSAGES), '#skip') }}
+    #if: ${{ github.event_name == 'push' && !contains(join($COMMIT_MESSAGES), '#skip') }}
     needs: simple_deployment_pipeline
     steps:
       - uses: actions/checkout@v2
@@ -50,7 +50,7 @@ jobs:
         run: echo "$COMMIT_MESSAGES"
       - name: skip tag in commit messages
         run: echo "Skipping due to the skip tag in PR"
-        if: ${{ contains(join(COMMIT_MESSAGES), '#skip') }}
+        if: ${{ contains(join($COMMIT_MESSAGES), '#skip') }}
       - uses: akhileshns/heroku-deploy@v3.12.12
         if: ${{ github.event_name == 'push' }}
         with:
